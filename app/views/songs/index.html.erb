@@ -1,0 +1,49 @@
+<div class="col-md-12">
+	<h3>All the songs in our hub:</h3>
+	<table class="table table-striped">
+		<tr>
+			<th>Artist</th>
+			<th>Title</th>
+			<th>No. Of Times<br>Song Has Been Added</th>
+			<th>Add to Playlist</th>
+		</tr>
+		<% @songs.each do |song| %>
+		<tr>
+			<td><%= song.artist %></td>
+			<td><a href='/songs/<%= song.id %>'><%= song.content %></a></td>
+			<td><%= Like.where(song_id: song.id).count %></td>
+			<td>
+				<form action='/likes' method='post'>
+				  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				  <input type='hidden' name='like[user_id]' value='<%= @user.id %>'>
+				  <input type='hidden' name='like[song_id]' value='<%= song.id %>'>
+				  <input type='submit' value='Add'>
+					</form>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+	<!-- <h4><a href="/songs/new">Back to post song</a></h4> -->
+	<hr>
+</div>
+<div class="col-md-5">
+	<% if flash[:errors] %>
+	  <% flash[:errors].each do |error| %>
+	    <p><%= error %></p>
+	  <% end %>
+	<% end %>
+	<h4>Add a Song</h4>
+	<form action='/songs' method='post'>
+	  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	  <input type='hidden' name='song[id]' value='<%= @user.id %>'>
+	  <div class='form-group'>
+	  <label>Artist:</label>
+	  <input type='text' name='song[artist]' placeholder='place artist' class='form-control'>
+	  </div>
+	  <div class='form-group'>
+	  <label>Title:</label>
+	  <input type='text' name='song[content]' placeholder='place song here' class='form-control'>
+	  </div>
+	  <input type='submit' value='Add Song' class='btn btn-primary'>
+	</form>
+</div>

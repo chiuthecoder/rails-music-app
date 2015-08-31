@@ -1,0 +1,19 @@
+<div class="col-md-12">
+<h4><%= @user.first_name %> <%= @user.last_name %>'s Playlist</h4>
+
+<table class="table table-striped">
+<tr>
+	<th>Song Artist</th>
+	<th>Song Title</th>
+	<th>Times Added</th>
+</tr>
+<% @likes.each do |like| %>
+<tr>
+	<td><%= like.artist %></td>
+	<td><%= like.content %></td>
+	<td><%= Like.where(song_id: like.song_id).count %></td>
+</tr>
+<% end %>
+</table>
+
+</div>

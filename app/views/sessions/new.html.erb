@@ -1,0 +1,13 @@
+<div class="col-md-5">
+<h1>Sign In</h1>
+
+<% if flash[:error] %>
+	<p><%= flash[:error] %></p>
+<% end %>
+
+<%= simple_form_for(:session, :url => sessions_path) do |f| %>
+  <%= f.input :email, input_html: { class: 'form-control' } %>
+  <%= f.input :password, input_html: { class: 'form-control' } %>
+  <%= f.button :submit %>
+<% end %>
+</div>
